@@ -69,6 +69,23 @@ public class BuildButtonWindow : EditorWindow
             }
         }
     }
+    
+    public static void BuildForPico()
+    {
+        bool confirmed = EditorUtility.DisplayDialog("Confirmation", "Build for Pico? (This might take a while...)\n\nBefore proceeding, make sure to set up the Player Settings for Pico VR.\n\n1. Open Player Settings (Edit -> Project Settings -> Player).\n2. Go to XR Plug-in Management.\n3. Enable the PICO VR Plugin.", "Yes", "Not Now");
+        if (confirmed)
+        {
+            BuildPlayerOptions androidBuildOptions = CreateAndroidBuildOptions();
+            BuildPipeline.BuildPlayer(androidBuildOptions);
+
+            // Return to PC platform if previous platform was PC
+            if (previousPlatform == BuildTarget.StandaloneWindows)
+            {
+                SwitchToPCPlatform();
+            }
+        }
+    }
+
     public static void BuildForPC()
     {
         bool confirmed = EditorUtility.DisplayDialog("Confirmation", "Build for PC? (This might take a while...)", "Yes", "Not Now");
@@ -226,6 +243,14 @@ public class BuildOptionsWindow : EditorWindow
         if (GUILayout.Button("Build for Android", GUILayout.Height(buttonHeight)))
         {
             BuildButtonWindow.BuildForAndroid();
+            Close();
+        }
+                
+        GUILayout.Space(buttonMargin);
+
+        if (GUILayout.Button("Build for Pico", GUILayout.Height(buttonHeight)))
+        {
+            BuildButtonWindow.BuildForPico();
             Close();
         }
 
