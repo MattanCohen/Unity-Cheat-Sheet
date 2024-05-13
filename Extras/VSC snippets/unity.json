@@ -23,6 +23,17 @@
   ], 
   "description": "Add Awake function and instance for singleton classes" 
  }, 
+ "Singletontonton": { 
+  "prefix": "awake fingleton", 
+  "body": [ 
+   "private static $1 instance;", 
+   "private void Awake(){", 
+   " if (instance != null)  Destroy(gameObject);", 
+   " else     instance = this;", 
+   "}", 
+  ], 
+  "description": "Add Awake function and instance for singleton classes" 
+ }, 
  "IfEditor": { 
   "prefix": "editor #if", 
   "body": [ 
@@ -78,6 +89,13 @@
    "" 
   ], 
   "description": "Creates a custom editor script for Unity" 
- } 
+ },
+ "SerializedField": {
+    "prefix": "Serialized Field",
+    "body": [
+        "[SerializedField] private $1;",
+        "$2"
+    ]
+ }
    
 }
